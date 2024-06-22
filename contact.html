@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #005a5a; /* Deep underwater blue */
+            color: #000; /* Black text */
+        }
+        .header {
+            background-color: #02c3bd; /* Lighter underwater blue */
+            color: #000; /* Black text */
+            padding: 20px;
+            text-align: center;
+            font-size: 2em; /* Increase font size */
+            font-weight: bold; /* Make the header bold */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .container {
+            margin-top: 80px; /* Adjust as needed to make space for the fixed header */
+            text-align: center;
+        }
+        .social-item {
+            display: inline-block;
+            margin: 20px;
+        }
+        .social-item img {
+            width: 100px; /* Adjust as needed */
+            height: 100px; /* Adjust as needed */
+            border-radius: 50%; /* Make the image circular */
+        }
+        .description {
+            margin-top: 10px;
+            color: #fff; /* White text */
+        }
+        .email-container {
+            margin-top: 50px; /* Adjust as needed */
+            text-align: center;
+        }
+        .copy-button {
+            padding: 10px 20px;
+            background-color: #02c3bd; /* Lighter underwater blue */
+            border: none;
+            border-radius: 5px;
+            color: #000; /* Black text */
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .copy-button:hover {
+            background-color: #00a8a7; /* Darker shade of underwater blue */
+            color: #fff; /* White text on hover */
+        }
+        footer {
+            background-color: #02c3bd; /* Lighter underwater blue */
+            color: #000; /* Black text */
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Socials</div>
+    <div class="container">
+        <div class="social-item">
+            <a href="https://www.instagram.com/yourprofile" target="_blank">
+                <img src="instagram_logo.png" alt="Instagram">
+            </a>
+            <p class="description">Instagram is where I post behind-the-scenes content of my fish.</p>
+        </div>
+        <div class="social-item">
+            <a href="https://www.facebook.com/profile.php?id=61560531273490" target="_blank">
+                <img src="facebook_logo.png" alt="Facebook">
+            </a>
+            <p class="description">Facebook is where you will find a better availability of my store and fish.</p>
+        </div>
+    </div>
+    <div class="email-container">
+        <p style="color: #fff;">Email: reefnriveroasis@gmail.com</p>
+        <button class="copy-button" onclick="copyEmail()">Copy Email</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Reef & River Oasis. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function copyEmail() {
+            var email = "reefnriveroasis@gmail.com";
+            navigator.clipboard.writeText(email).then(function() {
+                alert("Email copied to clipboard: " + email);
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>

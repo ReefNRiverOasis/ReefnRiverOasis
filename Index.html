@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reef & River Oasis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #005a5a; /* Deep underwater blue */
+            color: #000; /* Black text */
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #02c3bd; /* Lighter underwater blue */
+            color: #000;
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .welcome-section {
+            background-color: #ffffff; /* White background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dropdown select, .buttons {
+            font-size: 1em;
+            padding: 10px;
+            border: none;
+            background-color: #f0f0f0; /* Light grey */
+            color: #000; /* Black text */
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .buttons a {
+            text-decoration: none;
+            color: #000; /* Black text */
+            padding: 10px 20px;
+            background-color: #02c3bd; /* Lighter underwater blue */
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .buttons a:hover {
+            background-color: #00a8a7; /* Darker shade of underwater blue */
+        }
+        .image-showcase {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around; /* Center items */
+            gap: 20px; /* Space between items */
+            overflow-y: auto; /* Enable vertical scrolling */
+            max-height: calc(100vh - 300px); /* Adjust max height as needed */
+        }
+        .image-box {
+            background-color: #ffffff; /* White background */
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: calc(20% - 20px); /* Adjust width and spacing */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 300px; /* Ensure minimum height to prevent overlapping */
+        }
+        .image-box img {
+            max-width: 100%; /* Ensure image width fits within container */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .image-box .product-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+        .image-box p {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            text-decoration: none;
+            padding: 8px 16px;
+            background-color: #02c3bd; /* Lighter underwater blue */
+            color: #fff;
+            border-radius: 4px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .pagination a:hover {
+            background-color: #00a8a7; /* Darker shade of underwater blue */
+        }
+        footer {
+            background-color: #02c3bd; /* Lighter underwater blue */
+            color: #000;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Reef & River Oasis</h1>
+    </header>
+
+    <div class="container welcome-section">
+        <div>
+            <select id="categoryDropdown" onchange="loadCategory()">
+                <option value="">Select a Category</option>
+                <option value="live-fish">Live Fish</option>
+                <option value="clean-up-crew">Clean Up Crew</option>
+                <option value="accessories">Accessories</option>
+            </select>
+        </div>
+        <div class="buttons">
+            <a href="contact.html">Contact Info</a>
+            <!-- <a href="blog.html">Blog</a> Removed the Blog button -->
+            <a href="legal.html">Legal Information</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 id="categoryTitle" style="text-align: center; margin-top: 20px;">Spotlight</h2>
+        <div class="image-showcase" id="imageShowcase">
+            <!-- Images will be dynamically loaded here -->
+        </div>
+        <div id="pagination" class="pagination"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Reef & River Oasis. All rights reserved.</p>
+    </footer>
+
+    <script>
+        var imagesPerPage = 4; // Number of images per page
+        var currentImages = []; // Array to hold currently displayed images
+        var totalPages = 0; // Total number of pages
+        var currentPage = 1; // Current page
+
+        function loadCategory() {
+            var dropdown = document.getElementById("categoryDropdown");
+            var selectedValue = dropdown.value; // Get the selected value
+
+            // Update the heading based on the selected category
+            document.getElementById("categoryTitle").textContent = dropdown.options[dropdown.selectedIndex].text;
+
+            // Clear previous content
+            var imageShowcase = document.getElementById("imageShowcase");
+            imageShowcase.innerHTML = "";
+            currentImages = []; // Reset currently displayed images array
+            currentPage = 1; // Reset current page
+
+            // Load images based on selected category
+            if (selectedValue === "live-fish") {
+                loadImage("Albino-yellow-snakeskin.png", ["Albino Yellow Snakeskin", "Guppy"], "$15.95");
+                loadImage("Guppy-Yellow-Cobra-Tail.jpg", ["Yellow Cobra Tail", "Guppy"], "$7.95");
+                loadImage("Guppy-Platinum-Red-Blue.jpeg", ["Plat/Blue/Red Mosaic Tail", "Guppy"], "$9.95");
+                loadImage("Live-fish.jpg", ["New Fish Product 3"], "$XX.XX"); // Additional images for page 2
+                loadImage("Live-fish.jpg", ["New Fish Product 1"], "$XX.XX"); 
+                loadImage("Live-fish.jpg", ["New Fish Product 2"], "$XX.XX");
+                loadImage("Live-fish.jpg", ["New Fish Product 3"], "$XX.XX");
+            } else if (selectedValue === "clean-up-crew") {
+                loadImage("clean-up-crew1.jpg", ["Product 4"], "$XX.XX");
+                loadImage("clean-up-crew2.jpg", ["Product 5"], "$XX.XX");
+                loadImage("clean-up-crew3.jpg", ["Product 6"], "$XX.XX");
+                loadImage("clean-up-crew1.jpg", ["Product 4"], "$XX.XX"); // Additional images for page 2
+                loadImage("clean-up-crew2.jpg", ["Product 5"], "$XX.XX");
+                loadImage("clean-up-crew3.jpg", ["Product 6"], "$XX.XX");
+            } else if (selectedValue === "accessories") {
+                loadImage("accessories1.jpg", ["Product 7"], "$XX.XX");
+                loadImage("accessories2.jpg", ["Product 8"], "$XX.XX");
+                loadImage("accessories3.jpg", ["Product 9"], "$XX.XX");
+                loadImage("clean-up-crew1.jpg", ["Product 4"], "$XX.XX"); // Additional images for page 2
+                loadImage("clean-up-crew2.jpg", ["Product 5"], "$XX.XX");
+                loadImage("clean-up-crew3.jpg", ["Product 6"], "$XX.XX");
+            }
+
+            // Calculate total pages based on current images array
+            totalPages = Math.ceil(currentImages.length / imagesPerPage);
+
+            // Display initial page
+            updateImageShowcase();
+            // Display pagination
+            displayPagination();
+        }
+
+        function loadImage(imageSrc, productDetails, productPrice) {
+            currentImages.push({ src: imageSrc, details: productDetails, price: productPrice });
+        }
+
+        function updateImageShowcase() {
+            var imageShowcase = document.getElementById("imageShowcase");
+            imageShowcase.innerHTML = ""; // Clear current content
+
+            var startIndex = (currentPage - 1) * imagesPerPage;
+            var endIndex = startIndex + imagesPerPage;
+            var displayedImages = currentImages.slice(startIndex, endIndex);
+
+            displayedImages.forEach(image => {
+                var imageBox = document.createElement("div");
+                imageBox.className = "image-box";
+
+                var imageLink = document.createElement("a");
+                imageLink.href = "javascript:void(0);";
+
+                var img = new Image();
+                img.onload = function() {
+                    imageLink.appendChild(img);
+                    imageBox.appendChild(imageLink);
+                    var detailsContainer = document.createElement("div");
+                    detailsContainer.className = "product-details";
+                    image.details.forEach(detail => {
+                        var detailParagraph = document.createElement("p");
+                        detailParagraph.textContent = detail;
+                        detailsContainer.appendChild(detailParagraph);
+                    });
+                    var priceParagraph = document.createElement("p");
+                    priceParagraph.textContent = image.price;
+                    priceParagraph.style.fontWeight = "bold";
+                    detailsContainer.appendChild(priceParagraph);
+                    imageBox.appendChild(detailsContainer);
+                    imageShowcase.appendChild(imageBox);
+                };
+                img.src = image.src;
+                img.style.width = "100%";
+                img.style.height = "auto";
+                img.style.borderRadius = "8px";
+                img.style.marginBottom = "10px";
+            });
+        }
+
+        function displayPagination() {
+            var pagination = document.getElementById("pagination");
+            pagination.innerHTML = ""; // Clear current pagination
+
+            if (totalPages > 1) {
+                for (var i = 1; i <= totalPages; i++) {
+                    var pageLink = document.createElement("a");
+                    pageLink.href = "javascript:void(0);";
+                    pageLink.textContent = i;
+                    pageLink.addEventListener("click", function() {
+                        currentPage = parseInt(this.textContent);
+                        updateImageShowcase();
+                        updatePaginationStyle();
+                    });
+                    pagination.appendChild(pageLink);
+                }
+                // Highlight current page
+                updatePaginationStyle();
+            }
+        }
+
+        function updatePaginationStyle() {
+            var paginationLinks = document.querySelectorAll(".pagination a");
+            paginationLinks.forEach(link => {
+                if (parseInt(link.textContent) === currentPage) {
+                    link.style.backgroundColor = "#00a8a7";
+                } else {
+                    link.style.backgroundColor = "#02c3bd";
+                }
+            });
+        }
+
+        // Initial load on page load (optional)
+        window.onload = function() {
+            var dropdown = document.getElementById("categoryDropdown");
+            dropdown.value = "live-fish"; // Set the dropdown to "Live Fish"
+            loadCategory(); // Load the "Live Fish" category
+        };
+    </script>
+</body>
+</html>
