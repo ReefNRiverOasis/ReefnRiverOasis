@@ -11,6 +11,9 @@
             padding: 0;
             background-color: #005a5a; /* Deep underwater blue */
             color: #000; /* Black text */
+            min-height: 100vh; /* Ensure full viewport height */
+            display: flex;
+            flex-direction: column;
         }
         .header {
             background-color: #02c3bd; /* Lighter underwater blue */
@@ -19,19 +22,19 @@
             text-align: center;
             font-size: 2em; /* Increase font size */
             font-weight: bold; /* Make the header bold */
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         .container {
-            margin-top: 80px; /* Adjust as needed to make space for the fixed header */
-            text-align: center;
+            flex: 1; /* Fill remaining vertical space */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .social-item {
-            display: inline-block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin: 20px;
         }
         .social-item img {
@@ -42,10 +45,11 @@
         .description {
             margin-top: 10px;
             color: #fff; /* White text */
+            text-align: center;
         }
         .email-container {
-            margin-top: 50px; /* Adjust as needed */
             text-align: center;
+            margin-bottom: 50px; /* Adjust as needed */
         }
         .copy-button {
             padding: 10px 20px;
@@ -65,8 +69,6 @@
             color: #000; /* Black text */
             text-align: center;
             padding: 10px 0;
-            position: fixed;
-            bottom: 0;
             width: 100%;
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
         }
@@ -87,10 +89,10 @@
             </a>
             <p class="description">Facebook is where you will find a better availability of my store and fish.</p>
         </div>
-    </div>
-    <div class="email-container">
-        <p style="color: #fff;">Email: reefnriveroasis@gmail.com</p>
-        <button class="copy-button" onclick="copyEmail()">Copy Email</button>
+        <div class="email-container">
+            <p style="color: #fff;">Email: reefnriveroasis@gmail.com</p>
+            <button class="copy-button" onclick="copyEmail()">Copy Email</button>
+        </div>
     </div>
 
     <footer>
