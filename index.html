@@ -6,19 +6,24 @@
     <title>Reef & River Oasis</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #005a5a; /* Deep underwater blue */
+            font-family: Gabriola, bold;
+            background-image: url('undathesea.avif'); /* Replace with your image path */
+            background-size: cover; /* Make the image cover the whole background */
+            background-position: center; /* Center the background image */
             color: #000; /* Black text */
             margin: 0;
             padding: 0;
         }
         header {
-            background-color: #02c3bd; /* Lighter underwater blue */
+            background-color: rgba(2, 195, 189, 0.9); /* Lighter underwater blue with opacity */
             color: #000;
             text-align: center;
             padding: 10px 0;
             margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            font-size: 24px; /* Increase header text size for readability */
+            text-decoration: underline; /* Underline header text */
         }
         .container {
             max-width: 960px;
@@ -26,35 +31,39 @@
             padding: 0 20px;
         }
         .welcome-section {
-            background-color: #ffffff; /* White background */
+            background-color: rgba(0, 0, 70, 0.9); /* White background with opacity */
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .dropdown select, .buttons {
+        .dropdown select {
             font-size: 1em;
             padding: 10px;
             border: none;
-            background-color: #f0f0f0; /* Light grey */
-            color: #000; /* Black text */
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
             cursor: pointer;
             border-radius: 4px;
             margin-right: 10px;
+            font-weight: bold;
+            text-decoration: underline; /* Underline dropdown text */
         }
         .buttons a {
-            text-decoration: none;
+            text-decoration: underline; /* Underline button text */
             color: #000; /* Black text */
-            padding: 10px 20px;
-            background-color: #02c3bd; /* Lighter underwater blue */
+            padding: 15px 30px; /* Increased padding */
+            background-color: rgba(2, 195, 189, 0.9); /* Original underwater blue background */
             border-radius: 4px;
             margin-right: 10px;
+            font-weight: bold;
+            font-size: 18px; /* Increased font size */
         }
         .buttons a:hover {
-            background-color: #00a8a7; /* Darker shade of underwater blue */
+            background-color: rgba(0, 168, 167, 0.9); /* Darker shade of underwater blue with opacity */
         }
         .image-showcase {
             margin-top: 20px;
@@ -66,10 +75,11 @@
             max-height: calc(100vh - 300px); /* Adjust max height as needed */
         }
         .image-box {
-            background-color: #ffffff; /* White background */
+            background-color:  #000435; /* Black background */
             padding: 10px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 2px solid #000; /* Black border */
             width: calc(20% - 20px); /* Adjust width and spacing */
             text-align: center;
             display: flex;
@@ -84,15 +94,19 @@
             margin-bottom: 10px;
         }
         .image-box .product-details {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 10px 0;
-        }
+    font-family: Arial, sans-serif; /* Change font family to Arial */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 0;
+    color: #fff; /* White text for better readability on black background */
+    font-weight: bold;
+    text-decoration: ; /* Underline product details text */
+}
         .image-box p {
-            font-size: 1em;
-            margin: 5px 0;
+            font-size: 1.2em; /* Increased font size */
+            margin: 10px 0; /* Increased margin */
         }
         .pagination {
             text-align: center;
@@ -101,24 +115,29 @@
         .pagination a {
             text-decoration: none;
             padding: 8px 16px;
-            background-color: #02c3bd; /* Lighter underwater blue */
+            background-color: #000; /* Black background */
             color: #fff;
             border-radius: 4px;
             margin: 0 5px;
             cursor: pointer;
+            font-weight: bold;
+            font-size: 16px; /* Increased font size */
+            text-decoration: underline; /* Underline pagination links */
         }
         .pagination a:hover {
-            background-color: #00a8a7; /* Darker shade of underwater blue */
+            background-color: rgba(0, 168, 167, 0.9); /* Darker shade of underwater blue with opacity */
         }
         footer {
-            background-color: #02c3bd; /* Lighter underwater blue */
+            background-color: rgba(2, 195, 189, 0.9); /* Lighter underwater blue with opacity */
             color: #000;
             text-align: center;
             padding: 10px 0;
             position: fixed;
             bottom: 0;
             width: 100%;
-            box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            text-decoration: underline; /* Underline footer text */
         }
     </style>
 </head>
@@ -184,7 +203,7 @@
                 loadImage("Live-fish.jpg", ["New Fish Product 2"], "$XX.XX");
                 loadImage("Live-fish.jpg", ["New Fish Product 3"], "$XX.XX");
             } else if (selectedValue === "clean-up-crew") {
-                loadImage("clean-up-crew1.jpg", ["Product 4"], "$XX.XX");
+                loadImage("Ramshorn-Snail.png", ["Ramshorn Snail", "x10"], "$5.00");
                 loadImage("clean-up-crew2.jpg", ["Product 5"], "$XX.XX");
                 loadImage("clean-up-crew3.jpg", ["Product 6"], "$XX.XX");
                 loadImage("clean-up-crew1.jpg", ["Product 4"], "$XX.XX"); // Additional images for page 2
@@ -194,9 +213,11 @@
                 loadImage("accessories1.jpg", ["Product 7"], "$XX.XX");
                 loadImage("accessories2.jpg", ["Product 8"], "$XX.XX");
                 loadImage("accessories3.jpg", ["Product 9"], "$XX.XX");
-                loadImage("clean-up-crew1.jpg", ["Product 4"], "$XX.XX"); // Additional images for page 2
-                loadImage("clean-up-crew2.jpg", ["Product 5"], "$XX.XX");
-                loadImage("clean-up-crew3.jpg", ["Product 6"], "$XX.XX");
+                loadImage("accessories1.jpg", ["Product 7"], "$XX.XX"); // Additional images for page 2
+                loadImage("accessories2.jpg", ["Product 8"], "$XX.XX");
+                loadImage("accessories3.jpg", ["Product 9"], "$XX.XX");
+            } else {
+                // Default
             }
 
             // Calculate total pages based on current images array
@@ -278,9 +299,9 @@
             var paginationLinks = document.querySelectorAll(".pagination a");
             paginationLinks.forEach(link => {
                 if (parseInt(link.textContent) === currentPage) {
-                    link.style.backgroundColor = "#00a8a7";
+                    link.style.backgroundColor = "rgba(0, 168, 167, 0.9)";
                 } else {
-                    link.style.backgroundColor = "#02c3bd";
+                    link.style.backgroundColor = "#000"; /* Black background */
                 }
             });
         }
