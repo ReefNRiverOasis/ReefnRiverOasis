@@ -173,96 +173,112 @@
         <p>&copy; 2024 Reef & River Oasis. All rights reserved.</p>
     </footer>
 
-    <script>
-        var imagesPerLoad = 6; // Number of images to load per scroll
-        var currentImages = []; // Array to hold currently displayed images
+<script>
+    var imagesPerLoad = 6; // Number of images to load per scroll
+    var currentImages = []; // Array to hold currently displayed images
+    var loadingImages = false; // Flag to prevent simultaneous image loading
 
-        function loadCategory() {
-            var dropdown = document.getElementById("categoryDropdown");
-            var selectedValue = dropdown.value;
+    function loadCategory() {
+        var dropdown = document.getElementById("categoryDropdown");
+        var selectedValue = dropdown.value;
 
-            // Update the heading based on the selected category
-            document.getElementById("categoryTitle").textContent = dropdown.options[dropdown.selectedIndex].text;
+        // Update the heading based on the selected category
+        document.getElementById("categoryTitle").textContent = dropdown.options[dropdown.selectedIndex].text;
 
-            // Clear previous content
-            var imageShowcase = document.getElementById("imageShowcase");
-            imageShowcase.innerHTML = "";
-            currentImages = [];
+        // Clear previous content
+        var imageShowcase = document.getElementById("imageShowcase");
+        imageShowcase.innerHTML = "";
+        currentImages = []; // Reset current images array
+        loadingImages = false; // Reset loading flag
 
-            // Load images based on selected category
-            if (selectedValue === "live-fish") {
-                loadImage("Guppy-Mutt.jpg", ["Mutt", "Guppy"], "$5.95");
-                loadImage("Guppy-Yellow-Cobra-Tail.jpg", ["Yellow Cobra Tail", "Guppy"], "$10.95");
-                loadImage("Guppy-Platinum-Red-Blue.jpeg", ["Plat/Blue/Red Mosaic Tail", "Guppy"], "$10.95");
-            } else if (selectedValue === "clean-up-crew") {
-                loadImage("Ramshorn-Snail.png", ["Ramshorn Snail", "x 10"], "$5.00");
-            } else if (selectedValue === "accessories") {
-                loadImage("accessories1.jpg", ["Product 7"], "$XX.XX");
-            } else {
-                // Default case, can be left empty if no default images are to be loaded
-            }
-
-            // Attach scroll event listener to window
-            window.addEventListener('scroll', scrollHandler);
-
-            // Initially load images
-            loadMoreImages();
+        // Load images based on selected category
+        if (selectedValue === "live-fish") {
+            loadImage("Guppy-Mutt.jpg", ["Mutt", "Guppy"], "$5.95");
+            loadImage("Guppy-Yellow-Cobra-Tail.jpg", ["Yellow Cobra Tail", "Guppy"], "$10.95");
+            loadImage("Guppy-Platinum-Red-Blue.jpeg", ["Plat/Blue/Red Mosaic Tail", "Guppy"], "$10.95");
+        } else if (selectedValue === "clean-up-crew") {
+            loadImage("Ramshorn-Snail.png", ["Ramshorn Snail", "x 10"], "$5.00");
+        } else if (selectedValue === "accessories") {
+            loadImage("accessories1.jpg", ["Product 7"], "$XX.XX");
+        } else {
+            // Default case, can be left empty if no default images are to be loaded
         }
 
-        function loadImage(imageSrc, productDetails, productPrice) {
-            currentImages.push({ src: imageSrc, details: productDetails, price: productPrice });
+        // Initially load images
+        loadMoreImages();
+    }
+
+    function loadImage(imageSrc, productDetails, productPrice) {
+        currentImages.push({ src: imageSrc, details: productDetails, price: productPrice });
+    }
+
+    function loadMoreImages() {
+        // Prevent loading more images if already loading
+        if (loadingImages) {
+            return;
         }
 
-        function loadMoreImages() {
-            // Determine start and end index based on current images and images per load
-            var startIndex = document.querySelectorAll('.image-box').length;
-            var endIndex = startIndex + imagesPerLoad;
-            var displayedImages = currentImages.slice(startIndex, endIndex);
+        loadingImages = true; // Set loading flag
 
-            // Display images
-            var imageShowcase = document.getElementById("imageShowcase");
-            displayedImages.forEach(image => {
-                var imageBox = document.createElement("div");
-                imageBox.className = "image-box";
+        // Determine start and end index based on current images and images per load
+        var startIndex = document.querySelectorAll('.image-box').length;
+        var endIndex = startIndex + imagesPerLoad;
+        var displayedImages = currentImages.slice(startIndex, endIndex);
 
-                var img = new Image();
-                img.onload = function() {
-                    imageBox.appendChild(img);
-                    var detailsContainer = document.createElement("div");
-                    detailsContainer.className = "product-details";
-                    image.details.forEach(detail => {
-                        var detailParagraph = document.createElement("p");
-                        detailParagraph.textContent = detail;
-                        detailsContainer.appendChild(detailParagraph);
-                    });
-                    var priceParagraph = document.createElement("p");
-                    priceParagraph.textContent = image.price;
-                    priceParagraph.style.fontWeight = "bold";
-                    detailsContainer.appendChild(priceParagraph);
-                    imageBox.appendChild(detailsContainer);
-                    imageShowcase.appendChild(imageBox);
-                };
-                img.src = image.src;
-                img.style.width = "100%";
-                img.style.height = "auto";
-                img.style.borderRadius = "8px";
-                img.style.marginBottom = "10px";
-            });
+        // Display images
+        var imageShowcase = document.getElementById("imageShowcase");
+        var imagesLoaded = 0;
+
+        displayedImages.forEach(image => {
+            var imageBox = document.createElement("div");
+            imageBox.className = "image-box";
+
+            var img = new Image();
+            img.onload = function() {
+                imageBox.appendChild(img);
+                var detailsContainer = document.createElement("div");
+                detailsContainer.className = "product-details";
+                image.details.forEach(detail => {
+                    var detailParagraph = document.createElement("p");
+                    detailParagraph.textContent = detail;
+                    detailsContainer.appendChild(detailParagraph);
+                });
+                var priceParagraph = document.createElement("p");
+                priceParagraph.textContent = image.price;
+                priceParagraph.style.fontWeight = "bold";
+                detailsContainer.appendChild(priceParagraph);
+                imageBox.appendChild(detailsContainer);
+                imageShowcase.appendChild(imageBox);
+
+                imagesLoaded++;
+                if (imagesLoaded === displayedImages.length) {
+                    loadingImages = false; // Reset loading flag once all images are loaded
+                }
+            };
+            img.src = image.src;
+            img.style.width = "100%";
+            img.style.height = "auto";
+            img.style.borderRadius = "8px";
+            img.style.marginBottom = "10px";
+        });
+    }
+
+    function scrollHandler() {
+        // Check if near the bottom of the page
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            loadMoreImages(); // Load more images
         }
+    }
 
-        function scrollHandler() {
-            // Check if near the bottom of the page
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                loadMoreImages(); // Load more images
-            }
-        }
+    // Attach scroll event listener to window
+    window.addEventListener('scroll', scrollHandler);
 
-        // Initial load on page load
-        window.onload = function() {
-            var dropdown = document.getElementById("categoryDropdown");
-            dropdown.value = "live-fish";
-            loadCategory();
-        };
-    </script>
+    // Initial load on page load
+    window.onload = function() {
+        var dropdown = document.getElementById("categoryDropdown");
+        dropdown.value = "live-fish";
+        loadCategory();
+    };
+</script>
 </body>
 </html>
