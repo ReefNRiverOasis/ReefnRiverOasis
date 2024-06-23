@@ -122,25 +122,6 @@
             font-size: 1.2em;
             margin: 10px 0;
         }
-        .pagination {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .pagination a {
-            text-decoration: none;
-            padding: 8px 16px;
-            background-color: #000;
-            color: #fff;
-            border-radius: 4px;
-            margin: 0 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
-            text-decoration: underline;
-        }
-        .pagination a:hover {
-            background-color: rgba(0, 168, 167, 0.9);
-        }
         footer {
             background-color: rgba(2, 195, 189, 0.9);
             color: #000;
@@ -186,7 +167,6 @@
         <div class="image-showcase" id="imageShowcase">
             <!-- Images will be dynamically loaded here -->
         </div>
-        <div id="pagination" class="pagination"></div>
     </div>
 
     <footer>
@@ -194,10 +174,8 @@
     </footer>
 
     <script>
-        var imagesPerPage = 4; // Number of images per page
+        var imagesPerLoad = 6; // Number of images to load per scroll
         var currentImages = []; // Array to hold currently displayed images
-        var totalPages = 0; // Total number of pages
-        var currentPage = 1; // Current page
 
         function loadCategory() {
             var dropdown = document.getElementById("categoryDropdown");
@@ -210,7 +188,6 @@
             var imageShowcase = document.getElementById("imageShowcase");
             imageShowcase.innerHTML = "";
             currentImages = [];
-            currentPage = 1;
 
             // Load images based on selected category
             if (selectedValue === "live-fish") {
@@ -221,7 +198,7 @@
                 loadImage("Live-fish.jpg", ["New Fish Product 2"], "$XX.XX");
                 loadImage("Live-fish.jpg", ["New Fish Product 3"], "$XX.XX");
             } else if (selectedValue === "clean-up-crew") {
-                loadImage("Ramshorn-Snail.png", ["Ramshorn Snail", "x 10"], "$5.00");
+                loadImage("Ramshorn-Snail.png", ["Ramshorn Snail","x 10"], "$5.00");
                 loadImage("clean-up-crew1.jpg", ["Product 4"], "$XX.XX");
                 loadImage("clean-up-crew2.jpg", ["Product 5"], "$XX.XX");
                 loadImage("clean-up-crew3.jpg", ["Product 6"], "$XX.XX");
@@ -233,38 +210,32 @@
                 // Default
             }
 
-            // Calculate total pages based on current images array
-            totalPages = Math.ceil(currentImages.length / imagesPerPage);
+            // Attach scroll event listener to window
+            window.addEventListener('scroll', scrollHandler);
 
-            // Display initial page
-            updateImageShowcase();
-            // Display pagination
-            displayPagination();
+            // Initially load images
+            loadMoreImages();
         }
 
         function loadImage(imageSrc, productDetails, productPrice) {
             currentImages.push({ src: imageSrc, details: productDetails, price: productPrice });
         }
 
-        function updateImageShowcase() {
-            var imageShowcase = document.getElementById("imageShowcase");
-            imageShowcase.innerHTML = "";
-
-            var startIndex = (currentPage - 1) * imagesPerPage;
-            var endIndex = startIndex + imagesPerPage;
+        function loadMoreImages() {
+            // Determine start and end index based on current images and images per load
+            var startIndex = document.querySelectorAll('.image-box').length;
+            var endIndex = startIndex + imagesPerLoad;
             var displayedImages = currentImages.slice(startIndex, endIndex);
 
+            // Display images
+            var imageShowcase = document.getElementById("imageShowcase");
             displayedImages.forEach(image => {
                 var imageBox = document.createElement("div");
                 imageBox.className = "image-box";
 
-                var imageLink = document.createElement("a");
-                imageLink.href = "javascript:void(0);";
-
                 var img = new Image();
                 img.onload = function() {
-                    imageLink.appendChild(img);
-                    imageBox.appendChild(imageLink);
+                    imageBox.appendChild(img);
                     var detailsContainer = document.createElement("div");
                     detailsContainer.className = "product-details";
                     image.details.forEach(detail => {
@@ -287,35 +258,11 @@
             });
         }
 
-        function displayPagination() {
-            var pagination = document.getElementById("pagination");
-            pagination.innerHTML = "";
-
-            if (totalPages > 1) {
-                for (var i = 1; i <= totalPages; i++) {
-                    var pageLink = document.createElement("a");
-                    pageLink.href = "javascript:void(0);";
-                    pageLink.textContent = i;
-                    pageLink.addEventListener("click", function() {
-                        currentPage = parseInt(this.textContent);
-                        updateImageShowcase();
-                        updatePaginationStyle();
-                    });
-                    pagination.appendChild(pageLink);
-                }
-                updatePaginationStyle();
+        function scrollHandler() {
+            // Check if near the bottom of the page
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                loadMoreImages(); // Load more images
             }
-        }
-
-        function updatePaginationStyle() {
-            var paginationLinks = document.querySelectorAll(".pagination a");
-            paginationLinks.forEach(link => {
-                if (parseInt(link.textContent) === currentPage) {
-                    link.style.backgroundColor = "rgba(0, 168, 167, 0.9)";
-                } else {
-                    link.style.backgroundColor = "#000";
-                }
-            });
         }
 
         // Initial load on page load
