@@ -13,71 +13,87 @@
             color: #000;
             margin: 0;
             padding: 0;
-            min-height: 100vh; /* Ensure full viewport height */
+            min-height: 100vh;
             display: flex;
-            flex-direction: column; /* Stack children vertically */
-            align-items: center; /* Center children horizontally */
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            position: fixed; /* Fixed position to stick at the top */
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.0); /* Transparent background */
+            padding: 10px 0;
+            z-index: 10; /* Ensure header stays above content */
+            display: flex;
+            justify-content: center; /* Center align contents */
+            align-items: center; /* Center align contents */
         }
         .logo {
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            max-width: 200px; /* Enlarge the logo */
+            max-width: 200px; /* Adjust logo size */
+            width: 100%;
             height: auto;
             border-radius: 50%; /* Make logo rounded */
             background-color: rgba(255, 255, 255, 0.8); /* Background color for logo */
             padding: 10px; /* Padding around logo */
-            z-index: 20; /* Ensure sidebar is above main content */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Shadow for logo */
         }
         .sidebar {
             position: fixed;
             top: 0;
-            left: -300px; /* Initially hidden off-screen */
+            left: -300px;
             width: 300px;
             height: 100vh;
             background-color: rgba(0, 0, 70, 0.9);
-            transition: left 0.3s ease; /* Smooth transition for opening/closing */
+            transition: left 0.3s ease;
             z-index: 100; /* Ensure sidebar is above main content */
-            overflow-y: auto; /* Enable scrolling for sidebar content */
+            overflow-y: auto;
         }
         .sidebar.open {
-            left: 0; /* Slide in when open */
+            left: 0;
         }
         .container {
             max-width: 960px;
             margin: 0 auto;
-            padding: 80px 20px 0; /* Adjust top padding to accommodate logo */
-            flex: 1; /* Fill remaining vertical space */
-            position: relative; /* Ensure relative positioning */
-            z-index: 1; /* Ensure content stays above logo */
+            padding: 180px 20px 0; /* Adjusted top padding */
+            flex: 1;
+            position: relative;
+            z-index: 1;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center content horizontally */
+            align-items: center;
+        }
+        .welcome-section {
+            background-color: rgba(0, 0, 70, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 100%;
+            max-width: 600px;
         }
         .buttons {
             display: flex;
-            flex-direction: column; /* Stack buttons vertically */
-            align-items: center; /* Center buttons horizontally */
-            gap: 10px; /* Space between buttons */
-            margin-top: 10px; /* Adjust margin */
-            width: 100%; /* Full width */
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            width: 100%;
         }
         .buttons a {
-            text-decoration: none; /* Remove underline */
+            text-decoration: none;
             color: #fff;
             padding: 15px 30px;
             background-color: rgba(2, 195, 189, 0.9);
             border-radius: 4px;
             font-weight: bold;
             font-size: 18px;
-            text-align: center; /* Center text */
-            display: block; /* Ensure button takes full width */
+            text-align: center;
+            display: block;
         }
         .dropdown {
-            margin-top: 10px; /* Adjust margin */
-            text-align: center; /* Center dropdown */
+            margin-top: 10px;
+            text-align: center;
         }
         .dropdown select {
             font-size: 1em;
@@ -89,37 +105,37 @@
             border-radius: 4px;
             font-weight: bold;
             text-decoration: underline;
-            width: 100%; /* Full width on mobile */
-            max-width: 100%; /* Limit width on larger screens */
+            width: 100%;
+            max-width: 100%;
         }
         .image-showcase {
-            margin-top: 70px;
+            margin-top: 40px;
             display: flex;
             flex-wrap: wrap;
-            justify-content: center; /* Center items */
+            justify-content: center;
             gap: 20px;
             overflow-y: auto;
             max-height: calc(100vh - 300px);
-            width: 100%; /* Ensure full width */
-            padding: 0 20px; /* Add padding for smaller screens */
-            box-sizing: border-box; /* Include padding in width calculation */
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
         .image-box {
             background-color: #000435;
-            padding: 10px;
+            padding: 5px; /* Adjust padding around image boxes */
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border: 2px solid #000;
-            width: calc(50% - 20px); /* Two columns on larger screens */
+            width: calc(50% - 20px);
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 300px;
-            margin-bottom: 20px; /* Space between image boxes */
+            min-height: 280px; /* Adjusted height for image boxes */
+            margin-bottom: 20px;
         }
         .image-box img {
-            max-width: 100%;
+            max-width: 80%;
             height: auto;
             border-radius: 8px;
             margin-bottom: 10px;
@@ -143,7 +159,7 @@
             color: #000;
             text-align: center;
             padding: 10px 0;
-            margin-top: auto; /* Push to the bottom */
+            margin-top: auto;
             width: 100%;
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
             font-weight: bold;
@@ -153,28 +169,20 @@
         /* Media Queries */
         @media (max-width: 768px) {
             .logo {
-                max-width: 120px; /* Adjust for smaller screens */
-                top: 20px; /* Adjust top position */
+                max-width: 120px;
+                top: 20px;
             }
             .container {
-                padding-top: 120px; /* Space for the header including the logo */
+                padding-top: 120px;
             }
             .sidebar {
-                width: 250px; /* Adjust sidebar width for smaller screens */
-            }
-            .buttons {
-                flex-direction: column; /* Stack buttons vertically */
-                align-items: center; /* Center buttons */
+                width: 250px;
             }
             .buttons a {
-                margin-top: 10px; /* Add space between buttons */
-                flex: none; /* Reset button width to fit content */
-            }
-            .dropdown {
-                margin-top: 10px; /* Adjust margin */
+                margin-top: 10px;
             }
             .image-box {
-                width: calc(100% - 20px); /* Single column on smaller screens */
+                width: calc(100% - 20px);
             }
         }
     </style>
@@ -205,7 +213,6 @@
 
     <!-- Main Content -->
     <div class="container">
-        <h2 id="categoryTitle" style="text-align: center; margin-top: 20px;">Spotlight</h2>
         <div class="image-showcase" id="imageShowcase">
             <!-- Images will be dynamically loaded here -->
         </div>
@@ -220,23 +227,20 @@
         <p>&copy; 2024 Reef & River Oasis. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript for Sidebar Toggle -->
+    <!-- JavaScript for Sidebar Toggle and Image Loading -->
     <script>
+        var imagesPerLoad = 6; // Number of images to load per scroll
+        var currentImages = []; // Array to hold currently displayed images
+        var loadingImages = false; // Flag to prevent simultaneous image loading
+
         function toggleSidebar() {
             var sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('open');
         }
 
-        var imagesPerLoad = 6; // Number of images to load per scroll
-        var currentImages = []; // Array to hold currently displayed images
-        var loadingImages = false; // Flag to prevent simultaneous image loading
-
         function loadCategory() {
             var dropdown = document.getElementById("categoryDropdown");
             var selectedValue = dropdown.value;
-
-            // Update the heading based on the selected category
-            document.getElementById("categoryTitle").textContent = dropdown.options[dropdown.selectedIndex].text;
 
             // Clear previous content
             var imageShowcase = document.getElementById("imageShowcase");
@@ -280,7 +284,6 @@
 
             // Display images
             var imageShowcase = document.getElementById("imageShowcase");
-            var imagesLoaded = 0;
 
             displayedImages.forEach(image => {
                 var imageBox = document.createElement("div");
@@ -303,10 +306,7 @@
                     imageBox.appendChild(detailsContainer);
                     imageShowcase.appendChild(imageBox);
 
-                    imagesLoaded++;
-                    if (imagesLoaded === displayedImages.length) {
-                        loadingImages = false; // Reset loading flag once all images are loaded
-                    }
+                    loadingImages = false; // Reset loading flag once image is loaded
                 };
                 img.src = image.src;
                 img.style.width = "100%";
