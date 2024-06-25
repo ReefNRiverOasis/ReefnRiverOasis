@@ -133,22 +133,6 @@
             font-size: 1.2em;
             margin: 10px 0;
         }
-        .navigation-buttons {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        .navigation-buttons button {
-            background-color: rgba(2, 195, 189, 0.9);
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 16px;
-        }
         footer {
             background-color: rgba(2, 195, 189, 0.9);
             color: #000;
@@ -227,10 +211,6 @@
         <div class="image-showcase" id="imageShowcase">
             <!-- Images will be dynamically loaded here -->
         </div>
-        <div class="navigation-buttons">
-            <button onclick="scrollImages('prev')">◀</button>
-            <button onclick="scrollImages('next')">▶</button>
-        </div>
     </div>
 
     <!-- Toggle Button for Sidebar -->
@@ -265,13 +245,13 @@
 
             // Load images based on selected category
             if (selectedValue === "live-fish") {
-                loadImage("Guppy-Mutt.jpg", ["Mutt", "Guppy"], "$5.95");
-                loadImage("Guppy-Yellow-Cobra-Tail.jpg", ["Yellow Cobra Tail", "Guppy"], "$10.95");
-                loadImage("Guppy-Platinum-Red-Blue.jpeg", ["Plat/Blue/Red Mosaic Tail", "Guppy"], "$10.95");
+                loadImage("Guppy-Mutt.jpg", ["Mutt Guppy"], "$5.95");
+                loadImage("Guppy-Yellow-Cobra-Tail.jpg", ["Yellow Cobra Tail Guppy"], "$10.95");
+                loadImage("Guppy-Platinum-Red-Blue.jpeg", ["Plat/Blue/Red Mosaic Tail Guppy"], "$10.95");
             } else if (selectedValue === "clean-up-crew") {
-                loadImage("Ramshorn-Snail.png", ["Ramshorn Snail", "x 10"], "$5.00");
+                loadImage("Ramshorn-Snail.png", ["Ramshorn Snail x 10"], "$5.00");
             } else if (selectedValue === "accessories") {
-                loadImage("FryTrayCollage.png", ["Fry Tray","Frish Nursery","(only need adhesive)"], "$15.95");
+                loadImage("FryTrayCollage.png", ["Fry Tray Frish Nursery (only need adhesive)"], "$15.95");
             } else {
                 // Default case, can be left empty if no default images are to be loaded
             }
@@ -333,17 +313,6 @@
                 img.style.borderRadius = "8px";
                 img.style.marginBottom = "10px";
             });
-        }
-
-        function scrollImages(direction) {
-            var container = document.querySelector('.image-showcase');
-            var scrollAmount = 300; // Adjust as needed
-
-            if (direction === 'prev') {
-                container.scrollBy(-scrollAmount, 0);
-            } else if (direction === 'next') {
-                container.scrollBy(scrollAmount, 0);
-            }
         }
 
         function scrollHandler() {
