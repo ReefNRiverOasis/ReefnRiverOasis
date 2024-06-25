@@ -93,14 +93,14 @@
             max-width: 100%; /* Limit width on larger screens */
         }
         .image-showcase {
-            margin-top: 70px;
+            margin-top: 180px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center; /* Center items */
             gap: 20px;
             overflow-y: auto;
             max-height: calc(100vh - 300px);
-            width: 100%; /* Ensure full width */
+            width: 70%; /* Ensure full width */
             padding: 0 20px; /* Add padding for smaller screens */
             box-sizing: border-box; /* Include padding in width calculation */
         }
@@ -205,7 +205,6 @@
 
     <!-- Main Content -->
     <div class="container">
-        <h2 id="categoryTitle" style="text-align: center; margin-top: 20px;">Spotlight</h2>
         <div class="image-showcase" id="imageShowcase">
             <!-- Images will be dynamically loaded here -->
         </div>
@@ -234,9 +233,6 @@
         function loadCategory() {
             var dropdown = document.getElementById("categoryDropdown");
             var selectedValue = dropdown.value;
-
-            // Update the heading based on the selected category
-            document.getElementById("categoryTitle").textContent = dropdown.options[dropdown.selectedIndex].text;
 
             // Clear previous content
             var imageShowcase = document.getElementById("imageShowcase");
