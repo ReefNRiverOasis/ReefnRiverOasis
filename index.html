@@ -21,14 +21,17 @@
             position: absolute;
             top: 10px;
             left: 20px;
-            max-width: 150px; /* Adjust size as needed */
+            max-width: 120px; /* Adjust size as needed */
             height: auto;
+            z-index: 10; /* Ensure logo stays above other content */
         }
         .container {
             max-width: 960px;
             margin: 0 auto;
             padding: 0 20px;
             flex: 1; /* Fill remaining vertical space */
+            position: relative; /* Ensure relative positioning */
+            z-index: 1; /* Ensure content stays above logo */
         }
         .welcome-section {
             background-color: rgba(0, 0, 70, 0.9);
@@ -39,6 +42,8 @@
             display: flex;
             flex-direction: column;
             align-items: center; /* Center items */
+            position: relative; /* Ensure relative positioning */
+            z-index: 1; /* Ensure content stays above logo */
         }
         .buttons {
             display: flex;
@@ -137,10 +142,21 @@
                 left: 10px; /* Adjust position for smaller screens */
             }
             .container {
-                padding-top: 80px; /* Space for the header including the logo */
+                padding-top: 60px; /* Space for the header including the logo */
             }
             .welcome-section {
-                padding-top: 20px; /* Adjust top padding of welcome section */
+                padding-top: 10px; /* Adjust top padding of welcome section */
+            }
+            .buttons {
+                flex-direction: column; /* Stack buttons vertically */
+                align-items: center; /* Center buttons */
+            }
+            .buttons a {
+                margin-top: 10px; /* Add space between buttons */
+                flex: none; /* Reset button width to fit content */
+            }
+            .dropdown {
+                margin-top: 10px; /* Adjust margin */
             }
             .image-box {
                 width: calc(100% - 20px); /* Single column on smaller screens */
