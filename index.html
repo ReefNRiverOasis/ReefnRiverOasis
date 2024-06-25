@@ -16,15 +16,33 @@
             min-height: 100vh; /* Ensure full viewport height */
             display: flex;
             flex-direction: column; /* Stack children vertically */
+            align-items: center; /* Center children horizontally */
         }
         .logo {
             position: fixed;
             top: 10px;
-            left: 50%;
+            left: 10%;
             transform: translateX(-50%);
-            max-width: 150px; /* Adjust size as needed */
+            max-width: 200px; /* Enlarge the logo */
             height: auto;
-            z-index: 1000; /* Ensure logo stays above other content */
+            border-radius: 50%; /* Make logo rounded */
+            background-color: rgba(255, 255, 255, 0.8); /* Background color for logo */
+            padding: 10px; /* Padding around logo */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Shadow for logo */
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px; /* Initially hidden off-screen */
+            width: 300px;
+            height: 100vh;
+            background-color: rgba(0, 0, 70, 0.9);
+            transition: left 0.3s ease; /* Smooth transition for opening/closing */
+            z-index: 100; /* Ensure sidebar is above main content */
+            overflow-y: auto; /* Enable scrolling for sidebar content */
+        }
+        .sidebar.open {
+            left: 0; /* Slide in when open */
         }
         .container {
             max-width: 960px;
@@ -33,6 +51,9 @@
             flex: 1; /* Fill remaining vertical space */
             position: relative; /* Ensure relative positioning */
             z-index: 1; /* Ensure content stays above logo */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
         }
         .welcome-section {
             background-color: rgba(0, 0, 70, 0.9);
@@ -40,29 +61,27 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center items */
-            position: relative; /* Ensure relative positioning */
-            z-index: 1; /* Ensure content stays above logo */
+            width: 100%; /* Ensure full width */
+            max-width: 600px; /* Limit width for smaller screens */
         }
         .buttons {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* Center buttons */
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: center; /* Center buttons horizontally */
             gap: 10px; /* Space between buttons */
             margin-top: 10px; /* Adjust margin */
+            width: 100%; /* Full width */
         }
         .buttons a {
             text-decoration: none; /* Remove underline */
-            color: #000;
+            color: #fff;
             padding: 15px 30px;
             background-color: rgba(2, 195, 189, 0.9);
             border-radius: 4px;
             font-weight: bold;
             font-size: 18px;
-            flex: 1; /* Take full width */
             text-align: center; /* Center text */
+            display: block; /* Ensure button takes full width */
         }
         .dropdown {
             margin-top: 10px; /* Adjust margin */
@@ -79,7 +98,7 @@
             font-weight: bold;
             text-decoration: underline;
             width: 100%; /* Full width on mobile */
-            max-width: 300px; /* Limit width on larger screens */
+            max-width: 100%; /* Limit width on larger screens */
         }
         .image-showcase {
             margin-top: 20px;
@@ -89,6 +108,9 @@
             gap: 20px;
             overflow-y: auto;
             max-height: calc(100vh - 300px);
+            width: 100%; /* Ensure full width */
+            padding: 0 20px; /* Add padding for smaller screens */
+            box-sizing: border-box; /* Include padding in width calculation */
         }
         .image-box {
             background-color: #000435;
@@ -145,8 +167,8 @@
             .container {
                 padding-top: 120px; /* Space for the header including the logo */
             }
-            .welcome-section {
-                padding-top: 10px; /* Adjust top padding of welcome section */
+            .sidebar {
+                width: 250px; /* Adjust sidebar width for smaller screens */
             }
             .buttons {
                 flex-direction: column; /* Stack buttons vertically */
@@ -171,21 +193,25 @@
         <img class="logo" src="R&Roasis.jpeg" alt="Your Logo">
     </header>
 
-    <div class="container welcome-section">
-        <div class="buttons">
-            <a href="contact.html">Contact Info</a>
-            <a href="legal.html">Legal Information</a>
-        </div>
-        <div class="dropdown">
-            <select id="categoryDropdown" onchange="loadCategory()">
-                <option value="">Select a Category</option>
-                <option value="live-fish">Live Fish</option>
-                <option value="clean-up-crew">Clean Up Crew</option>
-                <option value="accessories">Accessories</option>
-            </select>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="container welcome-section">
+            <div class="dropdown">
+                <select id="categoryDropdown" onchange="loadCategory()">
+                    <option value="">Select a Category</option>
+                    <option value="live-fish">Live Fish</option>
+                    <option value="clean-up-crew">Clean Up Crew</option>
+                    <option value="accessories">Accessories</option>
+                </select>
+            </div>
+            <div class="buttons">
+                <a href="contact.html">Contact Info</a>
+                <a href="legal.html">Legal Information</a>
+            </div>
         </div>
     </div>
 
+    <!-- Main Content -->
     <div class="container">
         <h2 id="categoryTitle" style="text-align: center; margin-top: 20px;">Spotlight</h2>
         <div class="image-showcase" id="imageShowcase">
@@ -193,116 +219,127 @@
         </div>
     </div>
 
+    <!-- Toggle Button for Sidebar -->
+    <button onclick="toggleSidebar()" style="position: fixed; top: 20px; left: 20px; z-index: 1100;">
+        ☰
+    </button>
+
     <footer>
         <p>&copy; 2024 Reef & River Oasis. All rights reserved.</p>
     </footer>
 
-<script>
-    var imagesPerLoad = 6; // Number of images to load per scroll
-    var currentImages = []; // Array to hold currently displayed images
-    var loadingImages = false; // Flag to prevent simultaneous image loading
-
-    function loadCategory() {
-        var dropdown = document.getElementById("categoryDropdown");
-        var selectedValue = dropdown.value;
-
-        // Update the heading based on the selected category
-        document.getElementById("categoryTitle").textContent = dropdown.options[dropdown.selectedIndex].text;
-
-        // Clear previous content
-        var imageShowcase = document.getElementById("imageShowcase");
-        imageShowcase.innerHTML = "";
-        currentImages = []; // Reset current images array
-        loadingImages = false; // Reset loading flag
-
-        // Load images based on selected category
-        if (selectedValue === "live-fish") {
-            loadImage("Guppy-Mutt.jpg", ["Mutt", "Guppy"], "$5.95");
-            loadImage("Guppy-Yellow-Cobra-Tail.jpg", ["Yellow Cobra Tail", "Guppy"], "$10.95");
-            loadImage("Guppy-Platinum-Red-Blue.jpeg", ["Plat/Blue/Red Mosaic Tail", "Guppy"], "$10.95");
-        } else if (selectedValue === "clean-up-crew") {
-            loadImage("Ramshorn-Snail.png", ["Ramshorn Snail", "x 10"], "$5.00");
-        } else if (selectedValue === "accessories") {
-            loadImage("FryTrayCollage.png", ["Fry Tray","Frish Nursery","(only need adhesive)"], "$15.95");
-        } else {
-            // Default case, can be left empty if no default images are to be loaded
+    <!-- JavaScript for Sidebar Toggle -->
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
         }
 
-        // Initially load images
-        loadMoreImages();
-    }
+        var imagesPerLoad = 6; // Number of images to load per scroll
+        var currentImages = []; // Array to hold currently displayed images
+        var loadingImages = false; // Flag to prevent simultaneous image loading
 
-    function loadImage(imageSrc, productDetails, productPrice) {
-        currentImages.push({ src: imageSrc, details: productDetails, price: productPrice });
-    }
+        function loadCategory() {
+            var dropdown = document.getElementById("categoryDropdown");
+            var selectedValue = dropdown.value;
 
-    function loadMoreImages() {
-        // Prevent loading more images if already loading
-        if (loadingImages) {
-            return;
+            // Update the heading based on the selected category
+            document.getElementById("categoryTitle").textContent = dropdown.options[dropdown.selectedIndex].text;
+
+            // Clear previous content
+            var imageShowcase = document.getElementById("imageShowcase");
+            imageShowcase.innerHTML = "";
+            currentImages = []; // Reset current images array
+            loadingImages = false; // Reset loading flag
+
+            // Load images based on selected category
+            if (selectedValue === "live-fish") {
+                loadImage("Guppy-Mutt.jpg", ["Mutt", "Guppy"], "$5.95");
+                loadImage("Guppy-Yellow-Cobra-Tail.jpg", ["Yellow Cobra Tail", "Guppy"], "$10.95");
+                loadImage("Guppy-Platinum-Red-Blue.jpeg", ["Plat/Blue/Red Mosaic Tail", "Guppy"], "$10.95");
+            } else if (selectedValue === "clean-up-crew") {
+                loadImage("Ramshorn-Snail.png", ["Ramshorn Snail", "x 10"], "$5.00");
+            } else if (selectedValue === "accessories") {
+                loadImage("FryTrayCollage.png", ["Fry Tray","Frish Nursery","(only need adhesive)"], "$15.95");
+            } else {
+                // Default case, can be left empty if no default images are to be loaded
+            }
+
+            // Initially load images
+            loadMoreImages();
         }
 
-        loadingImages = true; // Set loading flag
-
-        // Determine start and end index based on current images and images per load
-        var startIndex = document.querySelectorAll('.image-box').length;
-        var endIndex = startIndex + imagesPerLoad;
-        var displayedImages = currentImages.slice(startIndex, endIndex);
-
-        // Display images
-        var imageShowcase = document.getElementById("imageShowcase");
-        var imagesLoaded = 0;
-
-        displayedImages.forEach(image => {
-            var imageBox = document.createElement("div");
-            imageBox.className = "image-box";
-
-            var img = new Image();
-            img.onload = function() {
-                imageBox.appendChild(img);
-                var detailsContainer = document.createElement("div");
-                detailsContainer.className = "product-details";
-                image.details.forEach(detail => {
-                    var detailParagraph = document.createElement("p");
-                    detailParagraph.textContent = detail;
-                    detailsContainer.appendChild(detailParagraph);
-                });
-                var priceParagraph = document.createElement("p");
-                priceParagraph.textContent = image.price;
-                priceParagraph.style.fontWeight = "bold";
-                detailsContainer.appendChild(priceParagraph);
-                imageBox.appendChild(detailsContainer);
-                imageShowcase.appendChild(imageBox);
-
-                imagesLoaded++;
-                if (imagesLoaded === displayedImages.length) {
-                    loadingImages = false; // Reset loading flag once all images are loaded
-                }
-            };
-            img.src = image.src;
-            img.style.width = "100%";
-            img.style.height = "auto";
-            img.style.borderRadius = "8px";
-            img.style.marginBottom = "10px";
-        });
-    }
-
-    function scrollHandler() {
-        // Check if near the bottom of the page
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-            loadMoreImages(); // Load more images
+        function loadImage(imageSrc, productDetails, productPrice) {
+            currentImages.push({ src: imageSrc, details: productDetails, price: productPrice });
         }
-    }
 
-    // Attach scroll event listener to window
-    window.addEventListener('scroll', scrollHandler);
+        function loadMoreImages() {
+            // Prevent loading more images if already loading
+            if (loadingImages) {
+                return;
+            }
 
-    // Initial load on page load
-    window.onload = function() {
-        var dropdown = document.getElementById("categoryDropdown");
-        dropdown.value = "live-fish";
-        loadCategory();
-    };
-</script>
+            loadingImages = true; // Set loading flag
+
+            // Determine start and end index based on current images and images per load
+            var startIndex = document.querySelectorAll('.image-box').length;
+            var endIndex = startIndex + imagesPerLoad;
+            var displayedImages = currentImages.slice(startIndex, endIndex);
+
+            // Display images
+            var imageShowcase = document.getElementById("imageShowcase");
+            var imagesLoaded = 0;
+
+            displayedImages.forEach(image => {
+                var imageBox = document.createElement("div");
+                imageBox.className = "image-box";
+
+                var img = new Image();
+                img.onload = function() {
+                    imageBox.appendChild(img);
+                    var detailsContainer = document.createElement("div");
+                    detailsContainer.className = "product-details";
+                    image.details.forEach(detail => {
+                        var detailParagraph = document.createElement("p");
+                        detailParagraph.textContent = detail;
+                        detailsContainer.appendChild(detailParagraph);
+                    });
+                    var priceParagraph = document.createElement("p");
+                    priceParagraph.textContent = image.price;
+                    priceParagraph.style.fontWeight = "bold";
+                    detailsContainer.appendChild(priceParagraph);
+                    imageBox.appendChild(detailsContainer);
+                    imageShowcase.appendChild(imageBox);
+
+                    imagesLoaded++;
+                    if (imagesLoaded === displayedImages.length) {
+                        loadingImages = false; // Reset loading flag once all images are loaded
+                    }
+                };
+                img.src = image.src;
+                img.style.width = "100%";
+                img.style.height = "auto";
+                img.style.borderRadius = "8px";
+                img.style.marginBottom = "10px";
+            });
+        }
+
+        function scrollHandler() {
+            // Check if near the bottom of the page
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                loadMoreImages(); // Load more images
+            }
+        }
+
+        // Attach scroll event listener to window
+        window.addEventListener('scroll', scrollHandler);
+
+        // Initial load on page load
+        window.onload = function() {
+            var dropdown = document.getElementById("categoryDropdown");
+            dropdown.value = "live-fish";
+            loadCategory();
+        };
+    </script>
 </body>
 </html>
