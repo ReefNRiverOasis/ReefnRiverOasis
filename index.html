@@ -132,6 +132,16 @@
 
         /* Media Queries */
         @media (max-width: 768px) {
+            .logo {
+                max-width: 100px; /* Adjust for smaller screens */
+                left: 10px; /* Adjust position for smaller screens */
+            }
+            .container {
+                padding-top: 80px; /* Space for the header including the logo */
+            }
+            .welcome-section {
+                padding-top: 20px; /* Adjust top padding of welcome section */
+            }
             .image-box {
                 width: calc(100% - 20px); /* Single column on smaller screens */
             }
@@ -191,7 +201,7 @@
         // Load images based on selected category
         if (selectedValue === "live-fish") {
             loadImage("Guppy-Mutt.jpg", ["Mutt", "Guppy"], "$5.95");
-            loadImage("Guppy-Yellow-Cobra-Tail.jpg", ["Yellow Cobra Tail", "Guppy"], "$15.95");
+            loadImage("Guppy-Yellow-Cobra-Tail.jpg", ["Yellow Cobra Tail", "Guppy"], "$10.95");
             loadImage("Guppy-Platinum-Red-Blue.jpeg", ["Plat/Blue/Red Mosaic Tail", "Guppy"], "$10.95");
         } else if (selectedValue === "clean-up-crew") {
             loadImage("Ramshorn-Snail.png", ["Ramshorn Snail", "x 10"], "$5.00");
