@@ -18,17 +18,18 @@
             flex-direction: column; /* Stack children vertically */
         }
         .logo {
-            position: absolute;
+            position: fixed;
             top: 10px;
-            left: 20px;
-            max-width: 120px; /* Adjust size as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 150px; /* Adjust size as needed */
             height: auto;
-            z-index: 10; /* Ensure logo stays above other content */
+            z-index: 1000; /* Ensure logo stays above other content */
         }
         .container {
             max-width: 960px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 80px 20px 0; /* Adjust top padding to accommodate logo */
             flex: 1; /* Fill remaining vertical space */
             position: relative; /* Ensure relative positioning */
             z-index: 1; /* Ensure content stays above logo */
@@ -138,11 +139,11 @@
         /* Media Queries */
         @media (max-width: 768px) {
             .logo {
-                max-width: 100px; /* Adjust for smaller screens */
-                left: 10px; /* Adjust position for smaller screens */
+                max-width: 120px; /* Adjust for smaller screens */
+                top: 20px; /* Adjust top position */
             }
             .container {
-                padding-top: 60px; /* Space for the header including the logo */
+                padding-top: 120px; /* Space for the header including the logo */
             }
             .welcome-section {
                 padding-top: 10px; /* Adjust top padding of welcome section */
