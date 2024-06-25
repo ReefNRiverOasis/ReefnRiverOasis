@@ -95,14 +95,12 @@
         .image-showcase {
             margin-top: 180px;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* Center items */
+            overflow-x: auto; /* Enable horizontal scrolling */
             gap: 20px;
-            overflow-y: auto;
-            max-height: calc(100vh - 300px);
-            width: 70%; /* Ensure full width */
+            max-width: 100%; /* Ensure full width */
             padding: 0 20px; /* Add padding for smaller screens */
             box-sizing: border-box; /* Include padding in width calculation */
+            scroll-snap-type: x mandatory; /* Snap to each image */
         }
         .image-box {
             background-color: #000435;
@@ -112,11 +110,8 @@
             border: 2px solid #000;
             width: calc(50% - 20px); /* Two columns on larger screens */
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 300px;
-            margin-bottom: 20px; /* Space between image boxes */
+            flex-shrink: 0; /* Prevent shrinking in flexbox */
+            scroll-snap-align: start; /* Snap to the start of each image */
         }
         .image-box img {
             max-width: 100%;
@@ -137,6 +132,22 @@
         .product-details p {
             font-size: 1.2em;
             margin: 10px 0;
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .navigation-buttons button {
+            background-color: rgba(2, 195, 189, 0.9);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
         }
         footer {
             background-color: rgba(2, 195, 189, 0.9);
@@ -173,6 +184,14 @@
             .dropdown {
                 margin-top: 10px; /* Adjust margin */
             }
+            .image-showcase {
+                flex-direction: column; /* Stack images vertically */
+                gap: 20px; /* Space between images */
+                overflow-x: hidden; /* Hide horizontal overflow */
+                overflow-y: auto; /* Enable vertical scrolling */
+                max-height: calc(100vh - 300px); /* Limit height */
+                width: 100%; /* Full width */
+            }
             .image-box {
                 width: calc(100% - 20px); /* Single column on smaller screens */
             }
@@ -208,6 +227,10 @@
         <div class="image-showcase" id="imageShowcase">
             <!-- Images will be dynamically loaded here -->
         </div>
+        <div class="navigation-buttons">
+            <button onclick="scrollImages('prev')">◀</button>
+            <button onclick="scrollImages('next')">▶</button>
+        </div>
     </div>
 
     <!-- Toggle Button for Sidebar -->
@@ -219,7 +242,7 @@
         <p>&copy; 2024 Reef & River Oasis. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript for Sidebar Toggle -->
+    <!-- JavaScript for Sidebar Toggle and Image Navigation -->
     <script>
         function toggleSidebar() {
             var sidebar = document.getElementById('sidebar');
@@ -310,6 +333,17 @@
                 img.style.borderRadius = "8px";
                 img.style.marginBottom = "10px";
             });
+        }
+
+        function scrollImages(direction) {
+            var container = document.querySelector('.image-showcase');
+            var scrollAmount = 300; // Adjust as needed
+
+            if (direction === 'prev') {
+                container.scrollBy(-scrollAmount, 0);
+            } else if (direction === 'next') {
+                container.scrollBy(scrollAmount, 0);
+            }
         }
 
         function scrollHandler() {
