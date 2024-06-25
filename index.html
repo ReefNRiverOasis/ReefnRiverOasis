@@ -17,16 +17,12 @@
             display: flex;
             flex-direction: column; /* Stack children vertically */
         }
-        header {
-            background-color: rgba(2, 195, 189, 0.9);
-            color: #000;
-            text-align: center;
-            padding: 10px 0;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            font-weight: bold;
-            font-size: 24px;
-            text-decoration: underline;
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            max-width: 150px; /* Adjust size as needed */
+            height: auto;
         }
         .container {
             max-width: 960px;
@@ -144,7 +140,8 @@
 </head>
 <body>
     <header>
-        <h1>Reef & River Oasis</h1>
+        <!-- Logo section -->
+        <img class="logo" src="R&Roasis.jpeg" alt="Your Logo">
     </header>
 
     <div class="container welcome-section">
