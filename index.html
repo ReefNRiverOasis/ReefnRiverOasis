@@ -6,7 +6,7 @@
     <title>Reef & River Oasis</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Gabriola, bold;
             background-image: url('Underwateroasis.jpeg');
             background-size: cover;
             background-position: center;
@@ -17,7 +17,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #121212; /* Dark background */
         }
         .logo {
             position: fixed;
@@ -27,10 +26,10 @@
             max-width: 200px;
             height: auto;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.3); /* Slightly opaque background */
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 10px;
             z-index: 20;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
         .sidebar {
             position: fixed;
@@ -42,7 +41,6 @@
             transition: left 0.3s ease;
             z-index: 100;
             overflow-y: auto;
-            color: #fff;
         }
         .sidebar.open {
             left: 0;
@@ -105,10 +103,10 @@
             scroll-snap-type: x mandatory;
         }
         .image-box {
-            background-color: #1e1e1e; /* Dark background */
+            background-color: #000435;
             padding: 10px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border: 2px solid #000;
             width: calc(50% - 20px);
             text-align: center;
@@ -142,12 +140,11 @@
             padding: 10px 0;
             margin-top: auto;
             width: 100%;
-            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
             font-weight: bold;
             text-decoration: underline;
         }
 
-        /* Media Queries */
         @media (max-width: 768px) {
             .logo {
                 max-width: 120px;
@@ -186,11 +183,9 @@
 </head>
 <body>
     <header>
-        <!-- Logo section -->
         <img class="logo" src="R&Roasis.jpeg" alt="Your Logo">
     </header>
 
-    <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="container welcome-section">
             <div class="dropdown">
@@ -203,20 +198,18 @@
             </div>
             <div class="buttons">
                 <a href="contact.html">Contact Info</a>
-                <a href="legal.html">Legal Information</a>
-                <a href="shipping.html">Shipping Information</a> <!-- New button -->
+                <a href="OurGoal.html">Our Mission</a>
+                <a href="legal.html">Policies & Legal Info</a> <!-- Updated text -->
             </div>
         </div>
     </div>
 
-    <!-- Main Content -->
     <div class="container">
         <div class="image-showcase" id="imageShowcase">
             <!-- Images will be dynamically loaded here -->
         </div>
     </div>
 
-    <!-- Toggle Button for Sidebar -->
     <button onclick="toggleSidebar()" style="position: fixed; top: 20px; left: 20px; z-index: 1100; background-color: #ff6600; color: #00e7ff; border: none; padding: 10px; border-radius: 4px;">
         ☰
     </button>
@@ -225,28 +218,25 @@
         <p>&copy; 2024 Reef & River Oasis. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript for Sidebar Toggle and Image Navigation -->
     <script>
         function toggleSidebar() {
             var sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('open');
         }
 
-        var imagesPerLoad = 6; // Number of images to load per scroll
-        var currentImages = []; // Array to hold currently displayed images
-        var loadingImages = false; // Flag to prevent simultaneous image loading
+        var imagesPerLoad = 6;
+        var currentImages = [];
+        var loadingImages = false;
 
         function loadCategory() {
             var dropdown = document.getElementById("categoryDropdown");
             var selectedValue = dropdown.value;
 
-            // Clear previous content
             var imageShowcase = document.getElementById("imageShowcase");
             imageShowcase.innerHTML = "";
-            currentImages = []; // Reset current images array
-            loadingImages = false; // Reset loading flag
+            currentImages = [];
+            loadingImages = false;
 
-            // Load images based on selected category
             if (selectedValue === "live-fish") {
                 loadImage("Guppy-Mutt.jpg", ["Mutt Guppy"], "$5.95");
                 loadImage("Guppy-Yellow-Cobra-Tail.jpg", ["Yellow Cobra Tail Guppy"], "$10.95");
@@ -255,11 +245,8 @@
                 loadImage("Ramshorn-Snail.png", ["Ramshorn Snail x 10"], "$5.00");
             } else if (selectedValue === "accessories") {
                 loadImage("FryTrayCollage.png", ["Fry Tray Frish Nursery (only need adhesive)"], "$15.95");
-            } else {
-                // Default case, can be left empty if no default images are to be loaded
             }
 
-            // Initially load images
             loadMoreImages();
         }
 
@@ -290,26 +277,24 @@
         }
 
         function loadMoreImages() {
-            if (loadingImages) return; // Prevent loading if already in progress
+            if (loadingImages) return;
             loadingImages = true;
 
-            // Simulate loading more images (replace this with actual loading logic)
-            setTimeout(() => {
-                loadCategory(); // Reload category images (adjust logic as needed)
+            // Simulate loading more images if available
+            setTimeout(function() {
                 loadingImages = false;
-            }, 500); // Simulated delay
+                var dropdown = document.getElementById("categoryDropdown");
+                var selectedValue = dropdown.value;
+
+                if (selectedValue === "live-fish") {
+                    // Add more live fish images if needed
+                } else if (selectedValue === "clean-up-crew") {
+                    // Add more clean-up crew images if needed
+                } else if (selectedValue === "accessories") {
+                    // Add more accessories images if needed
+                }
+            }, 1000);
         }
-
-        // Event listener to load more images on scroll
-        window.addEventListener('scroll', () => {
-            var scrollTop = window.scrollY;
-            var windowHeight = window.innerHeight;
-            var documentHeight = document.documentElement.scrollHeight;
-
-            if (scrollTop + windowHeight >= documentHeight - 100) {
-                loadMoreImages(); // Load more images when near the bottom of the page
-            }
-        });
     </script>
 </body>
 </html>
