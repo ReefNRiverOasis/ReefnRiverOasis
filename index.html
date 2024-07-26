@@ -6,78 +6,80 @@
     <title>Reef & River Oasis</title>
     <style>
         body {
-            font-family: Gabriola, bold;
+            font-family: Arial, sans-serif;
             background-image: url('Underwateroasis.jpeg');
             background-size: cover;
             background-position: center;
-            color: #000;
+            color: #fff;
             margin: 0;
             padding: 0;
-            min-height: 100vh; /* Ensure full viewport height */
+            min-height: 100vh;
             display: flex;
-            flex-direction: column; /* Stack children vertically */
-            align-items: center; /* Center children horizontally */
+            flex-direction: column;
+            align-items: center;
+            background-color: #121212; /* Dark background */
         }
         .logo {
             position: fixed;
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            max-width: 200px; /* Enlarge the logo */
+            max-width: 200px;
             height: auto;
-            border-radius: 50%; /* Make logo rounded */
-            background-color: rgba(255, 255, 255, 0.8); /* Background color for logo */
-            padding: 10px; /* Padding around logo */
-            z-index: 20; /* Ensure sidebar is above main content */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Shadow for logo */
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3); /* Slightly opaque background */
+            padding: 10px;
+            z-index: 20;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
         .sidebar {
             position: fixed;
             top: 0;
-            left: -300px; /* Initially hidden off-screen */
+            left: -300px;
             width: 300px;
             height: 100vh;
             background-color: rgba(0, 0, 70, 0.9);
-            transition: left 0.3s ease; /* Smooth transition for opening/closing */
-            z-index: 100; /* Ensure sidebar is above main content */
-            overflow-y: auto; /* Enable scrolling for sidebar content */
+            transition: left 0.3s ease;
+            z-index: 100;
+            overflow-y: auto;
+            color: #fff;
         }
         .sidebar.open {
-            left: 0; /* Slide in when open */
+            left: 0;
         }
         .container {
             max-width: 960px;
             margin: 0 auto;
-            padding: 80px 20px 0; /* Adjust top padding to accommodate logo */
-            flex: 1; /* Fill remaining vertical space */
-            position: relative; /* Ensure relative positioning */
-            z-index: 1; /* Ensure content stays above logo */
+            padding: 80px 20px 0;
+            flex: 1;
+            position: relative;
+            z-index: 1;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center content horizontally */
+            align-items: center;
         }
         .buttons {
             display: flex;
-            flex-direction: column; /* Stack buttons vertically */
-            align-items: center; /* Center buttons horizontally */
-            gap: 10px; /* Space between buttons */
-            margin-top: 10px; /* Adjust margin */
-            width: 100%; /* Full width */
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            width: 100%;
         }
         .buttons a {
-            text-decoration: none; /* Remove underline */
+            text-decoration: none;
             color: #fff;
             padding: 15px 30px;
             background-color: rgba(2, 195, 189, 0.9);
             border-radius: 4px;
             font-weight: bold;
             font-size: 18px;
-            text-align: center; /* Center text */
-            display: block; /* Ensure button takes full width */
+            text-align: center;
+            display: block;
         }
         .dropdown {
-            margin-top: 10px; /* Adjust margin */
-            text-align: center; /* Center dropdown */
+            margin-top: 10px;
+            text-align: center;
         }
         .dropdown select {
             font-size: 1em;
@@ -89,29 +91,29 @@
             border-radius: 4px;
             font-weight: bold;
             text-decoration: underline;
-            width: 100%; /* Full width on mobile */
-            max-width: 100%; /* Limit width on larger screens */
+            width: 100%;
+            max-width: 100%;
         }
         .image-showcase {
             margin-top: 180px;
             display: flex;
-            overflow-x: auto; /* Enable horizontal scrolling */
+            overflow-x: auto;
             gap: 20px;
-            max-width: 100%; /* Ensure full width */
-            padding: 0 20px; /* Add padding for smaller screens */
-            box-sizing: border-box; /* Include padding in width calculation */
-            scroll-snap-type: x mandatory; /* Snap to each image */
+            max-width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+            scroll-snap-type: x mandatory;
         }
         .image-box {
-            background-color: #000435;
+            background-color: #1e1e1e; /* Dark background */
             padding: 10px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
             border: 2px solid #000;
-            width: calc(50% - 20px); /* Two columns on larger screens */
+            width: calc(50% - 20px);
             text-align: center;
-            flex-shrink: 0; /* Prevent shrinking in flexbox */
-            scroll-snap-align: start; /* Snap to the start of each image */
+            flex-shrink: 0;
+            scroll-snap-align: start;
         }
         .image-box img {
             max-width: 100%;
@@ -138,9 +140,9 @@
             color: #000;
             text-align: center;
             padding: 10px 0;
-            margin-top: auto; /* Push to the bottom */
+            margin-top: auto;
             width: 100%;
-            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.5);
             font-weight: bold;
             text-decoration: underline;
         }
@@ -148,36 +150,36 @@
         /* Media Queries */
         @media (max-width: 768px) {
             .logo {
-                max-width: 120px; /* Adjust for smaller screens */
-                top: 20px; /* Adjust top position */
+                max-width: 120px;
+                top: 20px;
             }
             .container {
-                padding-top: 120px; /* Space for the header including the logo */
+                padding-top: 120px;
             }
             .sidebar {
-                width: 250px; /* Adjust sidebar width for smaller screens */
+                width: 250px;
             }
             .buttons {
-                flex-direction: column; /* Stack buttons vertically */
-                align-items: center; /* Center buttons */
+                flex-direction: column;
+                align-items: center;
             }
             .buttons a {
-                margin-top: 10px; /* Add space between buttons */
-                flex: none; /* Reset button width to fit content */
+                margin-top: 10px;
+                flex: none;
             }
             .dropdown {
-                margin-top: 10px; /* Adjust margin */
+                margin-top: 10px;
             }
             .image-showcase {
-                flex-direction: column; /* Stack images vertically */
-                gap: 20px; /* Space between images */
-                overflow-x: hidden; /* Hide horizontal overflow */
-                overflow-y: auto; /* Enable vertical scrolling */
-                max-height: calc(100vh - 300px); /* Limit height */
-                width: 100%; /* Full width */
+                flex-direction: column;
+                gap: 20px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                max-height: calc(100vh - 300px);
+                width: 100%;
             }
             .image-box {
-                width: calc(100% - 20px); /* Single column on smaller screens */
+                width: calc(100% - 20px);
             }
         }
     </style>
@@ -202,6 +204,7 @@
             <div class="buttons">
                 <a href="contact.html">Contact Info</a>
                 <a href="legal.html">Legal Information</a>
+                <a href="shipping.html">Shipping Information</a> <!-- New button -->
             </div>
         </div>
     </div>
@@ -260,77 +263,53 @@
             loadMoreImages();
         }
 
-        function loadImage(imageSrc, productDetails, productPrice) {
-            currentImages.push({ src: imageSrc, details: productDetails, price: productPrice });
+        function loadImage(imageSrc, details, price) {
+            var imageShowcase = document.getElementById("imageShowcase");
+            var imageBox = document.createElement("div");
+            imageBox.classList.add("image-box");
+
+            var img = document.createElement("img");
+            img.src = imageSrc;
+            img.alt = details.join(", ");
+
+            var productDetails = document.createElement("div");
+            productDetails.classList.add("product-details");
+
+            var detailsText = document.createElement("p");
+            detailsText.textContent = details.join(", ");
+            var priceText = document.createElement("p");
+            priceText.textContent = price;
+
+            productDetails.appendChild(detailsText);
+            productDetails.appendChild(priceText);
+
+            imageBox.appendChild(img);
+            imageBox.appendChild(productDetails);
+
+            imageShowcase.appendChild(imageBox);
         }
 
         function loadMoreImages() {
-            // Prevent loading more images if already loading
-            if (loadingImages) {
-                return;
-            }
+            if (loadingImages) return; // Prevent loading if already in progress
+            loadingImages = true;
 
-            loadingImages = true; // Set loading flag
-
-            // Determine start and end index based on current images and images per load
-            var startIndex = document.querySelectorAll('.image-box').length;
-            var endIndex = startIndex + imagesPerLoad;
-            var displayedImages = currentImages.slice(startIndex, endIndex);
-
-            // Display images
-            var imageShowcase = document.getElementById("imageShowcase");
-            var imagesLoaded = 0;
-
-            displayedImages.forEach(image => {
-                var imageBox = document.createElement("div");
-                imageBox.className = "image-box";
-
-                var img = new Image();
-                img.onload = function() {
-                    imageBox.appendChild(img);
-                    var detailsContainer = document.createElement("div");
-                    detailsContainer.className = "product-details";
-                    image.details.forEach(detail => {
-                        var detailParagraph = document.createElement("p");
-                        detailParagraph.textContent = detail;
-                        detailsContainer.appendChild(detailParagraph);
-                    });
-                    var priceParagraph = document.createElement("p");
-                    priceParagraph.textContent = image.price;
-                    priceParagraph.style.fontWeight = "bold";
-                    detailsContainer.appendChild(priceParagraph);
-                    imageBox.appendChild(detailsContainer);
-                    imageShowcase.appendChild(imageBox);
-
-                    imagesLoaded++;
-                    if (imagesLoaded === displayedImages.length) {
-                        loadingImages = false; // Reset loading flag once all images are loaded
-                    }
-                };
-                img.src = image.src;
-                img.style.width = "100%";
-                img.style.height = "auto";
-                img.style.borderRadius = "8px";
-                img.style.marginBottom = "10px";
-            });
+            // Simulate loading more images (replace this with actual loading logic)
+            setTimeout(() => {
+                loadCategory(); // Reload category images (adjust logic as needed)
+                loadingImages = false;
+            }, 500); // Simulated delay
         }
 
-        function scrollHandler() {
-            // Check if near the bottom of the page
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                loadMoreImages(); // Load more images
+        // Event listener to load more images on scroll
+        window.addEventListener('scroll', () => {
+            var scrollTop = window.scrollY;
+            var windowHeight = window.innerHeight;
+            var documentHeight = document.documentElement.scrollHeight;
+
+            if (scrollTop + windowHeight >= documentHeight - 100) {
+                loadMoreImages(); // Load more images when near the bottom of the page
             }
-        }
-
-        // Attach scroll event listener to window
-        window.addEventListener('scroll', scrollHandler);
-
-        // Initial load on page load
-        window.onload = function() {
-            var dropdown = document.getElementById("categoryDropdown");
-            dropdown.value = "live-fish";
-            loadCategory();
-        };
+        });
     </script>
 </body>
 </html>
